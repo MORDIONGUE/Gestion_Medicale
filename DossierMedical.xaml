@@ -1,0 +1,141 @@
+﻿<Window x:Class="gestionMedicale.DossierMedical"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dossier Médical - Gestion Médicale" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Styles pour les boutons -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="{TemplateBinding Tag}" FontSize="16" Foreground="{TemplateBinding Foreground}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#555"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style pour le bouton actif -->
+        <Style x:Key="ActiveNavButtonStyle" BasedOn="{StaticResource NavButtonStyle}" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="DossierMenuColumn" Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Menu latéral -->
+        <StackPanel x:Name="DossierSidebar" Background="#333" Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+            <Button Content="☰" Background="#444" Foreground="White" Height="40" Click="ToggleMenu_Click"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="5"/>
+            <StackPanel Margin="10" VerticalAlignment="Top">
+                <Button Tag="🏠" Content="Accueil" Click="GoHome_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="👤" Content="Patient" Click="PatientMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="📁" Content="Dossier Médical" Click="DossierMedicalMenuItem_Click" Style="{StaticResource ActiveNavButtonStyle}" />
+                <Button Tag="📅" Content="Consultation" Click="ConsultationMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="📝" Content="Prescription" Click="PrescriptionMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="❓" Content="Aide" Click="Help_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="⚙" Content="Paramètres" Click="SettingsMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="🔒" Content="Déconnexion" Click="DeconnexionMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Contenu principal -->
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Barre de navigation -->
+            <DockPanel Grid.Row="0" Background="#222">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                    <Image Source="C:\Users\Mor Diongue\Downloads\DALL·E 2024-11-09 20.11.48 - A professional illustration of a doctor standing confidently, wearing a white lab coat with a stethoscope around the neck, smiling warmly. The backgro.webp"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Width="40" 
+                        Height="40" 
+                        Margin="0,0,10,0"/>
+                    <Button Tag="🏠" Content="Accueil" Click="GoHome_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="👤" Content="Patient" Click="PatientMenuItem_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="📁" Content="Dossier Médical" Click="DossierMedicalMenuItem_Click" Style="{StaticResource ActiveNavButtonStyle}"/>
+                    <Button Tag="📅" Content="Consultation" Click="ConsultationMenuItem_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="📝" Content="Prescription" Click="PrescriptionMenuItem_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="❓" Content="Aide" Click="Help_Click" Style="{StaticResource NavButtonStyle}"/>
+                </StackPanel>
+            </DockPanel>
+
+            <!-- Contenu principal -->
+            <Border Grid.Row="1" Background="White" Padding="10">
+                <StackPanel>
+                    <DockPanel Margin="0,0,0,10">
+                        <TextBlock Text="Liste des dossiers médicaux" FontSize="20" FontWeight="Bold" DockPanel.Dock="Left"/>
+                        <Button Content="Ajouter un dossier médical" Tag="➕" DockPanel.Dock="Right" Padding="5" Margin="5" Click="AjouterDossier_Click"/>
+                    </DockPanel>
+                    <ListView x:Name="DossierListView" BorderBrush="Gray" BorderThickness="1" Padding="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Identifiant" DisplayMemberBinding="{Binding Identifiant}" Width="100"/>
+                                <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding Nom}" Width="150"/>
+                                <GridViewColumn Header="Traitements">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ItemsControl ItemsSource="{Binding Traitements}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding}" Margin="0,0,5,0"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Actions">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <!-- Bouton pour consulter tout le dossier -->
+                                                <Button Content="Consulter" Click="ConsulterDossier_Click" Style="{StaticResource NavButtonStyle}" Margin="5,0,0,0"/>
+                                                <!-- Bouton pour modifier -->
+                                                <Button Content="Modifier" Click="ModifierDossier_Click" Style="{StaticResource NavButtonStyle}" Margin="5,0,0,0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

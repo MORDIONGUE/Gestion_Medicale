@@ -1,0 +1,67 @@
+﻿<Window x:Class="gestionMedicale.AjouterDossierMedical"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter un Dossier Médical" Height="500" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- Style pour les boutons -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <TextBlock Text="{TemplateBinding Content}" 
+                                       Foreground="{TemplateBinding Foreground}" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#555"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Formulaire d'ajout -->
+        <StackPanel>
+            <TextBlock Text="Ajouter un Dossier Médical" FontSize="18" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+            <!-- Affichage de l'identifiant -->
+            <Label Content="Identifiant attribué :" Margin="5,5,0,0" FontWeight="Bold"/>
+            <TextBlock x:Name="IdTextBlock" FontSize="16" FontWeight="Bold" Margin="5,5,0,10" Foreground="Blue"/>
+
+            <!-- Saisie du nom -->
+            <Label Content="Nom du patient :" Margin="5,5,0,0" FontWeight="Bold"/>
+            <TextBox x:Name="NomTextBox" Margin="5"/>
+
+            <!-- Saisie du traitement -->
+            <Label Content="Traitement passé :" Margin="5,5,0,0" FontWeight="Bold"/>
+            <TextBox x:Name="TraitementTextBox" Margin="5"/>
+        </StackPanel>
+
+        <!-- Boutons d'action -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Enregistrer" Width="120" Margin="10" Click="Enregistrer_Click" Style="{StaticResource NavButtonStyle}"/>
+            <Button Content="Annuler" Width="120" Margin="10" Click="Annuler_Click" Style="{StaticResource NavButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window>

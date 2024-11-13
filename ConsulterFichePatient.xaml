@@ -1,0 +1,39 @@
+﻿<Window x:Class="gestionMedicale.ConsulterFichePatient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Consulter Fiche Patient" Height="306" Width="523">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Détails du Patient" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Nom:" FontWeight="Bold" Width="150"/>
+                <TextBlock x:Name="NomTextBlock"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Date de Naissance:" FontWeight="Bold" Width="150"/>
+                <TextBlock x:Name="DateNaissanceTextBlock"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Adresse:" FontWeight="Bold" Width="150"/>
+                <TextBlock x:Name="AdresseTextBlock"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Téléphone:" FontWeight="Bold" Width="150"/>
+                <TextBlock x:Name="TelephoneTextBlock"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Courriel:" FontWeight="Bold" Width="150"/>
+                <TextBlock x:Name="CourrielTextBlock"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Margin="0,20,0,0">
+                <Button Content="Fermer" Width="100" Click="Fermer_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

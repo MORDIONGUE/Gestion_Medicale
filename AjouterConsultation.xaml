@@ -1,0 +1,35 @@
+﻿<Window x:Class="gestionMedicale.AjouterConsultation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter une Consultation" Height="400" Width="400"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Ajouter une nouvelle consultation" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,20"/>
+
+            <TextBlock Text="Identifiant :" FontWeight="Bold"/>
+            <TextBox x:Name="ConsultationIdTextBox" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Date :" FontWeight="Bold"/>
+            <DatePicker x:Name="ConsultationDatePicker" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Motif :" FontWeight="Bold"/>
+            <TextBox x:Name="ConsultationMotifTextBox" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Observation :" FontWeight="Bold"/>
+            <TextBox x:Name="ConsultationObservationTextBox" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Diagnostic :" FontWeight="Bold"/>
+            <TextBox x:Name="ConsultationDiagnosticTextBox" Margin="0,5,0,20"/>
+
+            <Button Content="Ajouter" 
+                    HorizontalAlignment="Right" 
+                    Padding="10" 
+                    Width="100" 
+                    Click="Ajouter_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

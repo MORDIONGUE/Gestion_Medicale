@@ -1,0 +1,89 @@
+﻿<Window x:Class="gestionMedicale.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gestionMedicale"
+        mc:Ignorable="d"
+        Title="Authentification" Height="450" Width="800">
+    <Grid Background="#FFF2F2F2">
+        <!-- Texte de bienvenue -->
+        <TextBlock Text="Bienvenue, veuillez vous authentifier" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,40,0,0" />
+
+        <!-- Champ Identifiant -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+            <TextBlock Text="Identifiant" 
+                       FontSize="16" 
+                       Margin="0,0,0,5" />
+            <DockPanel Margin="0,0,0,20" Height="30">
+                <!-- Icône utilisateur -->
+                <TextBlock Text="👤" 
+                           FontSize="18" 
+                           VerticalAlignment="Center" 
+                           Margin="5,0"/>
+                <TextBox x:Name="IdentifiantTextBox" 
+                         Height="30" 
+                         FontSize="14" 
+                         Padding="5" 
+                         Margin="5,0,0,0" 
+                         DockPanel.Dock="Right"
+                         Width="250"/>
+            </DockPanel>
+
+            <!-- Champ Mot de passe -->
+            <TextBlock Text="Mot de passe" 
+                       FontSize="16" 
+                       Margin="0,0,0,5" />
+            <DockPanel Margin="0,0,0,20" Height="30">
+                <!-- Icône verrou -->
+                <TextBlock Text="🔒" 
+                           FontSize="18" 
+                           VerticalAlignment="Center" 
+                           Margin="5,0"/>
+                <PasswordBox x:Name="MotDePasseBox" 
+                             Height="30" 
+                             FontSize="14" 
+                             Padding="5" 
+                             Margin="5,0,0,0" 
+                             DockPanel.Dock="Right"
+                             Width="250"/>
+            </DockPanel>
+
+            <!-- Bouton S'authentifier -->
+            <Button Width="150" 
+                    Height="40" 
+                    Background="#4CAF50" 
+                    Foreground="White" 
+                    FontWeight="Bold" 
+                    Click="AuthentificationButton_Click" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,10,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <!-- Icône connexion -->
+                    <TextBlock Text="🔓" 
+                               FontSize="18" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,0"/>
+                    <TextBlock Text="S'authentifier" 
+                               VerticalAlignment="Center" 
+                               FontWeight="Bold"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Lien Mot de passe oublié -->
+            <TextBlock Text="Vous avez oublié votre mot de passe ? Appelez le service informatique." 
+                       Foreground="Blue" 
+                       FontSize="14" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,15,0,0" 
+                       TextWrapping="Wrap"
+                       Cursor="Hand"
+                       MouseDown="MotDePasseOublie_MouseDown" />
+        </StackPanel>
+    </Grid>
+</Window>
