@@ -1,0 +1,132 @@
+<Window x:Class="A_C.Presentation.Views.PrescriptionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Prescription - Gestion Médicale" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="{TemplateBinding Tag}" FontSize="16" Foreground="{TemplateBinding Foreground}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#555"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ActiveNavButtonStyle" BasedOn="{StaticResource NavButtonStyle}" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="PrescriptionMenuColumn" Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Menu latéral -->
+        <StackPanel Background="#333" Orientation="Vertical" Grid.Column="0">
+            <Button Content="☰" Background="#444" Foreground="White" Height="40" Click="ToggleMenu_Click"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Margin="5"/>
+            <StackPanel Margin="10" VerticalAlignment="Top">
+                <Button Tag="🏠" Content="Accueil" Click="GoHome_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="👤" Content="Patient" Click="PatientMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="📁" Content="Dossier Médical" Click="DossierMedicalMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="📅" Content="Consultation" Click="ConsultationMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="📝" Content="Prescription" Click="PrescriptionMenuItem_Click" Style="{StaticResource ActiveNavButtonStyle}" />
+                <Button Tag="❓" Content="Aide" Click="Help_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="⚙" Content="Paramètres" Click="SettingsMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+                <Button Tag="🔒" Content="Déconnexion" Click="DeconnexionMenuItem_Click" Style="{StaticResource NavButtonStyle}" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Contenu principal -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+
+            <!-- Barre de navigation -->
+            <DockPanel Grid.Row="0" Background="#222">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                    <Button Tag="🏠" Content="Accueil" Click="GoHome_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="👤" Content="Patient" Click="PatientMenuItem_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="📁" Content="Dossier Médical" Click="DossierMedicalMenuItem_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="📅" Content="Consultation" Click="ConsultationMenuItem_Click" Style="{StaticResource NavButtonStyle}"/>
+                    <Button Tag="📝" Content="Prescription" Click="PrescriptionMenuItem_Click" Style="{StaticResource ActiveNavButtonStyle}"/>
+                    <Button Tag="❓" Content="Aide" Click="Help_Click" Style="{StaticResource NavButtonStyle}"/>
+                </StackPanel>
+            </DockPanel>
+
+            <!-- Liste des patients -->
+            <Border Grid.Row="1" Background="White" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Liste des Patients avec Consultation"
+                             FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <ListView x:Name="PatientsListView" BorderBrush="Gray" BorderThickness="1" Padding="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding Nom}" Width="150" />
+                                <GridViewColumn Header="Date de Naissance" DisplayMemberBinding="{Binding DateNaissance}" Width="150" />
+                                <GridViewColumn Header="Actions">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="➕ Ajouter Prescription" Click="AjouterPrescription_Click" 
+                                                        Background="#4CAF50" Foreground="White" Padding="5" Margin="5,0,0,0" />
+                                                <Button Content="👁️ Consulter" Click="ConsulterPatient_Click" 
+                                                        Background="#2196F3" Foreground="White" Padding="5" Margin="5,0,0,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Border>
+
+            <!-- Liste des prescriptions -->
+            <Border Grid.Row="2" Background="White" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Prescriptions" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <ListView x:Name="PrescriptionsListView" BorderBrush="Gray" BorderThickness="1" Padding="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                                <GridViewColumn Header="Médicament" DisplayMemberBinding="{Binding Medicament}" Width="150"/>
+                                <GridViewColumn Header="Dosage" DisplayMemberBinding="{Binding Dosage}" Width="100"/>
+                                <GridViewColumn Header="Instructions" DisplayMemberBinding="{Binding Instructions}" Width="200"/>
+                                <GridViewColumn Header="Durée" DisplayMemberBinding="{Binding Duree}" Width="100"/>
+                                <GridViewColumn Header="État" DisplayMemberBinding="{Binding Etat}" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window> 

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <StartupObject>A_C.Presentation.App</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Page Update="Presentation\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Presentation\App.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>
