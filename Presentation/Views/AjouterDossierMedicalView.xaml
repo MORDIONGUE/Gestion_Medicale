@@ -1,0 +1,134 @@
+<Window x:Class="A_C.Presentation.Views.AjouterDossierMedicalView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter un Dossier Médical" Height="500" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- Style général pour les boutons -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{TemplateBinding Tag}" 
+                                         Margin="0,0,5,0"
+                                         VerticalAlignment="Center"/>
+                                <TextBlock Text="{TemplateBinding Content}" 
+                                         Foreground="{TemplateBinding Foreground}" 
+                                         VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#555"/>
+                    <Setter Property="Foreground" Value="#FFD700"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style pour le bouton "Enregistrer" -->
+        <Style x:Key="SaveButtonStyle" TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#81C784"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style pour le bouton "Annuler" -->
+        <Style x:Key="CancelButtonStyle" TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+            <Setter Property="Background" Value="#E53935"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#EF9A9A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style pour le bouton "Ajouter" dans les traitements -->
+        <Style x:Key="AddTreatmentButtonStyle" TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+            <Setter Property="Background" Value="#1E88E5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#64B5F6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- En-tête -->
+        <TextBlock Text="Ajouter un Dossier Médical" 
+                  FontSize="24" 
+                  FontWeight="Bold" 
+                  Margin="0,0,0,20" 
+                  HorizontalAlignment="Center"/>
+
+        <!-- Formulaire principal -->
+        <StackPanel Grid.Row="1" Margin="0,10">
+            <!-- Information du patient -->
+            <TextBlock Text="{Binding PatientInfo}" 
+                      FontSize="16" 
+                      Margin="0,0,0,20"
+                      TextAlignment="Center"/>
+
+            <!-- Saisie des traitements -->
+            <GroupBox Header="Traitements" Padding="10">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBox x:Name="TraitementTextBox" 
+                                Width="300" 
+                                Margin="0,0,10,0"
+                                VerticalContentAlignment="Center"/>
+                        <Button Content="Ajouter Traitement" 
+                                Tag="➕" 
+                                Width="120" 
+                                Click="AjouterTraitement_Click" 
+                                Style="{StaticResource AddTreatmentButtonStyle}"/>
+                    </StackPanel>
+                    <ListBox x:Name="TraitementsListBox" 
+                            Height="200" 
+                            Margin="0,0,0,10"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
+        <!-- Boutons d'action -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,20,0,0">
+            <Button Content="Enregistrer" 
+                    Tag="💾" 
+                    Width="120" 
+                    Click="Enregistrer_Click" 
+                    Style="{StaticResource SaveButtonStyle}"/>
+            <Button Content="Annuler" 
+                    Tag="❌" 
+                    Width="120" 
+                    Margin="10,0,0,0" 
+                    Click="Annuler_Click" 
+                    Style="{StaticResource CancelButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window> 
